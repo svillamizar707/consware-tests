@@ -1,2 +1,80 @@
-section { padding: 1rem; }
-li { list-style: none; margin-bottom: 1rem; border-bottom: 1px solid #ddd; padding-bottom: .5rem; }
+section.posts {
+	padding: 1rem;
+
+	.header {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		margin-bottom: 1rem;
+	}
+
+	.new-btn {
+		background: #2b6cb0;
+		color: #fff;
+		border: none;
+		padding: 0.5rem 0.75rem;
+		border-radius: 4px;
+		cursor: pointer;
+	}
+
+	.grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+		gap: 1rem;
+	}
+
+	.card {
+		background: #fff;
+		border: 1px solid #e6e6e6;
+		border-radius: 8px;
+		box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+		display: flex;
+		flex-direction: column;
+		height: 100%;
+	}
+
+	.card-body {
+		padding: 1rem;
+		flex: 1 1 auto;
+	}
+
+	.card-title {
+		margin: 0 0 0.25rem 0;
+		font-size: 1.05rem;
+	}
+
+	.meta {
+		color: #666;
+		font-size: 0.9rem;
+		margin-bottom: 0.5rem;
+	}
+
+	.card-text {
+		color: #333;
+		margin: 0;
+	}
+
+	.card-actions {
+		display: flex;
+		gap: 0.5rem;
+		padding: 0.75rem;
+		border-top: 1px solid #f0f0f0;
+		justify-content: flex-end;
+	}
+
+	.btn {
+		background: #edf2f7;
+		border: 1px solid #d1d5db;
+		padding: 0.4rem 0.6rem;
+		border-radius: 4px;
+		cursor: pointer;
+	}
+
+	.btn.danger {
+		background: #fff5f5;
+		border-color: #feb2b2;
+		color: #c53030;
+	}
+
+	.loading { color: #666; }
+}

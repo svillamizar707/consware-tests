@@ -1,21 +1,27 @@
-<section>
+<section class="posts">
   <div class="header">
     <h2>Publicaciones</h2>
     <button class="new-btn" (click)="create()">Nueva publicación</button>
   </div>
-  <div *ngIf="posts$ | async as posts; else loading">
-    <ul>
-      <li *ngFor="let post of posts">
-        <h3>{{ post.title }}</h3>
-        <p><strong>Usuario:</strong> {{ post.userId }}</p>
-        <p>{{ post.body }}</p>
-        <button (click)="view(post.id)">Ver</button>
-        <button (click)="edit(post.id)">Editar</button>
-        <button (click)="delete(post.id)">Eliminar</button>
-      </li>
-    </ul>
-  </div>
+
+  <ng-container *ngIf="posts$ | async as posts; else loading">
+    <div class="grid">
+      <article class="card" *ngFor="let post of posts">
+        <div class="card-body">
+          <h3 class="card-title">{{ post.title }}</h3>
+          <p class="meta"><strong>Usuario:</strong> {{ post.userId }}</p>
+          <p class="card-text">{{ post.body }}</p>
+        </div>
+        <div class="card-actions">
+          <button class="btn" (click)="view(post.id)">Ver</button>
+          <button class="btn" (click)="edit(post.id)">Editar</button>
+          <button class="btn danger" (click)="delete(post.id)">Eliminar</button>
+        </div>
+      </article>
+    </div>
+  </ng-container>
+
   <ng-template #loading>
-    <p>Cargando publicaciones...</p>
+    <p class="loading">Cargando publicaciones...</p>
   </ng-template>
 </section>
