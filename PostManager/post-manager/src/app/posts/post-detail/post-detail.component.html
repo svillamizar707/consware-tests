@@ -1,0 +1,11 @@
+<section>
+  <ng-container *ngIf="post$ | async as post; else loading">
+    <h2>{{ post.title }}</h2>
+    <p><strong>Usuario:</strong> {{ post.userId }}</p>
+    <p>{{ post.body }}</p>
+    <button (click)="back()">Volver</button>
+  </ng-container>
+  <ng-template #loading>
+    <p>Cargando...</p>
+  </ng-template>
+</section>
