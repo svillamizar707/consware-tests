@@ -30,5 +30,11 @@ namespace TravelRequests.Infrastructure.Repositories
 
         public async Task SaveChangesAsync()
             => await _context.SaveChangesAsync();
+
+        public async Task UpdateAsync(TravelRequest request)
+        {
+            _context.TravelRequests.Update(request);
+            await Task.CompletedTask;
+        }
     }
 }

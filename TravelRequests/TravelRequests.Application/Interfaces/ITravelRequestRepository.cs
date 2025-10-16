@@ -9,5 +9,8 @@ namespace TravelRequests.Application.Interfaces
         Task<TravelRequest?> GetByIdAsync(int id);
         Task<IEnumerable<TravelRequest>> GetAllAsync();
         Task SaveChangesAsync();
+
+
+        Task UpdateAsync(TravelRequest request);
     }
 }
