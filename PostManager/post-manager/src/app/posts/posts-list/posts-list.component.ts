@@ -42,6 +42,10 @@ export class PostsListComponent implements OnInit {
     this.router.navigate([`/posts/${id}/edit`]);
   }
 
+  create(): void {
+    this.router.navigate(['/posts/new']);
+  }
+
   async delete(id: number): Promise<void> {
     const ok = await this.confirm.confirm('¿Eliminar publicación? Esta acción es irreversible (simulada).');
     if (!ok) return;
