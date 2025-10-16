@@ -4,6 +4,8 @@ import { PostsService } from '../../services/posts.service';
 import { Post } from '../../models/post.model';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
+import { LoadingService } from '../../shared/loading.service';
+import { ToastService } from '../../shared/toast.service';
 
 @Component({
   selector: 'app-posts-list',
@@ -15,10 +17,19 @@ import { Router } from '@angular/router';
 export class PostsListComponent implements OnInit {
   private postsService = inject(PostsService);
   private router = inject(Router);
+  private loading = inject(LoadingService);
+  private toast = inject(ToastService);
   posts$!: Observable<Post[]>;
 
   ngOnInit(): void {
+    this.load();
+  }
+
+  private load(): void {
+    this.loading.show();
     this.posts$ = this.postsService.list(10);
+    // hide when observable emits - simple subscription
+    this.posts$.subscribe({ next: () => this.loading.hide(), error: () => this.loading.hide() });
   }
 
   view(id: number): void {
@@ -32,10 +43,17 @@ export class PostsListComponent implements OnInit {
   delete(id: number): void {
     const ok = window.confirm('¿Eliminar publicación? Esta acción es irreversible (simulada).');
     if (!ok) return;
-    this.postsService.delete(id).subscribe(() => {
-      // refrescar la lista
-      this.posts$ = this.postsService.list(10);
-      alert('Publicación eliminada (simulado).');
+    this.loading.show();
+    this.postsService.delete(id).subscribe({
+      next: () => {
+        this.loading.hide();
+        this.toast.success('Publicación eliminada (simulado)');
+        this.load();
+      },
+      error: () => {
+        this.loading.hide();
+        this.toast.error('Error al eliminar la publicación');
+      }
     });
   }
 }
