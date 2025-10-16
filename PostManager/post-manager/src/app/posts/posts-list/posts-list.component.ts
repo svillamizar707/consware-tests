@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { LoadingService } from '../../shared/loading.service';
 import { ToastService } from '../../shared/toast.service';
+import { ConfirmService } from '../../shared/confirm.service';
 
 @Component({
   selector: 'app-posts-list',
@@ -19,6 +20,7 @@ export class PostsListComponent implements OnInit {
   private router = inject(Router);
   private loading = inject(LoadingService);
   private toast = inject(ToastService);
+  private confirm = inject(ConfirmService);
   posts$!: Observable<Post[]>;
 
   ngOnInit(): void {
@@ -40,8 +42,8 @@ export class PostsListComponent implements OnInit {
     this.router.navigate([`/posts/${id}/edit`]);
   }
 
-  delete(id: number): void {
-    const ok = window.confirm('¿Eliminar publicación? Esta acción es irreversible (simulada).');
+  async delete(id: number): Promise<void> {
+    const ok = await this.confirm.confirm('¿Eliminar publicación? Esta acción es irreversible (simulada).');
     if (!ok) return;
     this.loading.show();
     this.postsService.delete(id).subscribe({
