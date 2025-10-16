@@ -1,0 +1,18 @@
+<section>
+  <h2>Publicaciones</h2>
+  <div *ngIf="posts$ | async as posts; else loading">
+    <ul>
+      <li *ngFor="let post of posts">
+        <h3>{{ post.title }}</h3>
+        <p><strong>Usuario:</strong> {{ post.userId }}</p>
+        <p>{{ post.body }}</p>
+        <button>Ver</button>
+        <button>Editar</button>
+        <button>Eliminar</button>
+      </li>
+    </ul>
+  </div>
+  <ng-template #loading>
+    <p>Cargando publicaciones...</p>
+  </ng-template>
+</section>
