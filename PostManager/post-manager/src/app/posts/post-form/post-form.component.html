@@ -1,0 +1,24 @@
+<section>
+  <h2>{{ editingId ? 'Editar publicación' : 'Nueva publicación' }}</h2>
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <label>
+      Usuario (ID)
+      <input type="number" formControlName="userId" />
+    </label>
+    <div *ngIf="form.get('userId')?.invalid && form.get('userId')?.touched">El usuario es requerido.</div>
+
+    <label>
+      Título
+      <input type="text" formControlName="title" />
+    </label>
+    <div *ngIf="form.get('title')?.invalid && form.get('title')?.touched">Título requerido (mínimo 3 caracteres).</div>
+
+    <label>
+      Contenido
+      <textarea formControlName="body"></textarea>
+    </label>
+    <div *ngIf="form.get('body')?.invalid && form.get('body')?.touched">Contenido requerido.</div>
+
+    <button type="submit" [disabled]="form.invalid">{{ editingId ? 'Guardar' : 'Crear' }}</button>
+  </form>
+</section>
